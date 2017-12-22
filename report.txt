@@ -1,0 +1,36 @@
+Ethan Williams, final project report
+_______________   __________   _______________   __________    _____    ______
+|   /|   |\   |   |   |\   |   |   /|   |\   |   |   ||    \   |   |   /\ \  |
+|  / |   | \  |   |   | \  |   |  / |   | \  |   |   ||     |  |   |  |  \ \ |
+| /  |   |  \ |   |   |  \ |   | /  |   |  \ |   |   ||     |  |   |  |   \ \|
+|/   |   |   \|   |   |/| \|   |/   |   |   \|   |   ||____/   |   |   \   \
+     |   |        |   | |           |   |        |   ||\       |   |    \   \
+     |   |        |   |\| /|        |   |        |   || \      |   |  |\ \   |
+     |   |        |   |  / |        |   |        |   ||  \     |   |  | \ \  |
+     |   |        |   | /  |        |   |        |   ||   \    |   |  |  \ \/
+     |___|        |___|/___|        |___|        |___||____\   |___|  |___\/
+
+-----User Experience-----
+-------------------------
+It's the classic game of Tetris. Controls are as follows:
+A and D slide the tetrimino left and right.
+W rotates the tetrimino.
+S is soft drop (drop tetrimino one square at a time).
+Spacebar is hard drop (immediately drop tetrimino to bottom of the well).
+ESC exits the game immediately
+
+Players advance in level for every 10 lines they clear. Tetriminos speed up with each level. When a tetrimino falls such that it locks into place with any part still in the top row, the game is over. After that, a dialog displays the player's score (one point for ever row cleared) and options for quitting the game.
+
+-----Program mechanics-----
+---------------------------
+The program uses two classes, Tetrimino and Game. Tetrimino is, well, a tetrimino, and holds information on the shape and location of the tetrimino. It has access functions to get the shape and position, as well as functions to rotate, slide left and right, and move down a step. Finally, there are functions to draw and clear to/from the screen.
+The Game class holds all of the workings of the Tetris game. Its private members are a 10x20 array which stores the well (the gameboard), as well as values for the score, the current speed (measured as the number of cpu clock ticks between each fall of the tetrimino), and a char for the user input.
+The Game class's primary method is Game::play, which emcompasses one complete game of Tetris. play is called by the main function and enters into a while loop with the condition that the top row is still clear. In the loop, blockLifeCycle is called, which is the main driver of the Tetrimino class.
+blockLifeCycle begins by creating a Tetrimino object and enters into a while loop with the condition that the tetrimino hasn't yet hit the bottom of the well/another piece. In the loop, the function checks for user input to manipulate the piece as well as the time since the piece last fell. Once enough time as elapsed (given by the speed private member), the block falls a step. Once the loop exits (i.e. the tetrimino has fallen all the way down the well), commitTetrimio is called, which writes the tetrimino onto the well array (while it is falling, the tetrimino stores its position in itself, and is merely drawn on top of the well).
+When blockLifeCycle is complete, play checks to see if any rows are filled across, and calls the clearRow function to empty the row (clearRow also increments the score and, if necessary, adjusts the speed). Finally it checks if the top row has any blocks in it. If not, it continues calling blockLifeCycle.
+Once the game is over, play returns the score to main, which passes it to endgame, which displays a message with the final score and commands to exit the game.
+
+-----Verification-----
+----------------------
+I play-tested the game. A lot. (Probably too much.)
+During development, I tested a variety of edge cases, such as rotating pieces (including each different shape) near the edge and moving the pieces out-of-bounds. 

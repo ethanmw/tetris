@@ -7,7 +7,7 @@ CLASS2= Tetrimino
 MAIN = tetris
 EXEC = $(MAIN)
 
-$(EXEC): $(CLASS1).o $(CLASS2).o $(MAIN).o
+$(EXEC): $(CLASS1).o $(CLASS2).o $(MAIN).o gfxnew.o
 	$(CMP) $(FLAGX) $(FLAGINC) $(FLAGLIB) $(MAIN).o $(CLASS1).o $(CLASS2).o gfxnew.o -o $(EXEC)
 
 $(CLASS1).o: $(CLASS1).cpp $(CLASS1).h $(CLASS2).h
@@ -19,5 +19,8 @@ $(CLASS2).o: $(CLASS2).cpp $(CLASS2).h
 $(MAIN).o: $(MAIN).cpp $(CLASS1).h
 	$(CMP) -c $(MAIN).cpp -o $(MAIN).o
 
+gfxnew.o: gfxnew.c gfxnew.h
+	$(CMP) -c gfxnew.c -o gfxnew.o
+
 clean:
-	rm $(EXEC) $(MAIN).o $(CLASS1).o $(CLASS2).o
+	rm $(EXEC) $(MAIN).o $(CLASS1).o $(CLASS2).o gfxnew.o

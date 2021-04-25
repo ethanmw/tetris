@@ -1,5 +1,7 @@
 //Ethan Williams, final project: Tetris
 //Game class definition (handles gameboard ("Well"), gameplay mechanics)
+#include <cstdio>
+#include <ctime>
 #include "gfxnew.h"
 #include "Game.h"
 

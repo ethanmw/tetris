@@ -1,6 +1,8 @@
 //Ethan Williams, final project: Tetris
 //final.cpp
 #include<cstdlib>
+#include <cstdio>
+#include <ctime>
 #include "Game.h"
 #include "gfxnew.h"
 
